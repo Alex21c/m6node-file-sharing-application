@@ -52,7 +52,7 @@ import morgan from 'morgan';
     // }));
 
     // CORS
-    app.use((req, res, next) => {    
+    server.use((req, res, next) => {    
       if(req.headers.host.includes('localhost')){
         res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
