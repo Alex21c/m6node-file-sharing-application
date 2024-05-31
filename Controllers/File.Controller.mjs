@@ -51,7 +51,8 @@ const uploadFile = async (req, res, next)=>{
   
     const cloudinaryResponse = await cloudinaryFileUpload(req, cloudinary, next);
     // console.log(req.userID);
-    const shareableLink = "HOSTNAME/api/v1/file/download-file/" +  cloudinaryResponse.public_id;
+    const HOSTNAME = req.headers.host.includes('localhost') ? "http://localhost:4000" : "https://m6node-file-sharing-application.onrender.com"
+    const shareableLink = `${HOSTNAME}/api/v1/file/download-file/` +  cloudinaryResponse.public_id;
     const jsonObj = {
       fileName : req.file.originalname,      
       fileDownloadLink : cloudinaryResponse.secure_url,
