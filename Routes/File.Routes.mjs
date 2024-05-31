@@ -13,7 +13,7 @@ const storage = multer.diskStorage(
       const newFileName = nanoid(21) +"."+ file.originalname.split('.').at(-1);
       // const newFileName = req.file.originalname;
 
-      console.log(newFileName)
+      // console.log(newFileName)
       cb(null, newFileName)
     }
   }
