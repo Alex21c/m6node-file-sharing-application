@@ -73,7 +73,7 @@ import morgan from 'morgan';
   // error handling middleware
     server.use((err, req, res, next)=>{
       // console.log(err);
-      const metadata = err?.metadata || {};
+      const metadata = err?.metadata || {message: err.message};
       res.status(err.statusCode || 500).json(metadata)
     });  
 
