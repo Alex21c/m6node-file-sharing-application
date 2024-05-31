@@ -43,13 +43,28 @@ import morgan from 'morgan';
 
   
   // Use the CORS middleware, such that from localhost i can make requests
-    server.use(cors({
-      origin: 'http://localhost:3000' // Allow requests from this origin
-    }));
+    // server.use(cors({
+    //   origin: 'http://localhost:3000' // Allow requests from this origin
+    // }));
 
     // server.use(cors({
     //   origin: 'https://frontend-m6node-day-7-project-url-shortener-application.vercel.app' // Allow requests from this origin
     // }));
+
+    // CORS
+    app.use((req, res, next) => {    
+      if(req.headers.host.includes('localhost')){
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+      }else{
+        res.header('Access-Control-Allow-Origin', 'https://frontend-m6node-file-sharing-application.vercel.app');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+      }
+      next();
+    });
+
 
 
   // Linking Routes
