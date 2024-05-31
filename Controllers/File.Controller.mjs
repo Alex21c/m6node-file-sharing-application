@@ -12,7 +12,7 @@ import FileModel from "../Models/File.Model.mjs";
       api_secret: process.env.CLOUDINARY_API_SECRET
   });
 
-async function clodinaryFileUpload(req, cloudinary){
+async function cloudinaryFileUpload(req, cloudinary){
   // console.log(req.file.mimetype.startsWith('image')? "image" : "raw");
   // return ;
   try {    
@@ -36,10 +36,12 @@ async function clodinaryFileUpload(req, cloudinary){
 const uploadFile = async (req, res, next)=>{
   try {    
     // here is the full path 
-    
-
+  
     // first check does it contains the file in the req.body ?
-    console.log(req.file);
+      // console.log(req.file);
+      // res.send('wait...');
+      // return;
+
     // checking file size is it greater than 5MB
       if(req.file.size > 5000000){
         next(throwNewError(400, {success: false, message: "File size should be less than 5MB"}));
@@ -47,7 +49,7 @@ const uploadFile = async (req, res, next)=>{
       }
   
   
-    const cloudinaryResponse = await clodinaryFileUpload(req, cloudinary, next);
+    const cloudinaryResponse = await cloudinaryFileUpload(req, cloudinary, next);
     // console.log(req.userID);
     const shareableLink = "HOSTNAME/api/v1/file/download-file/" +  cloudinaryResponse.public_id;
     const jsonObj = {
@@ -57,7 +59,7 @@ const uploadFile = async (req, res, next)=>{
       fileTrackableShareableLink : shareableLink,
       uploadedOnTimeStamp : new Date(),
       uploadedByWhichUser : req.userID,
-      traffic : 0,      
+      traffic : 1,      
     }
     // console.log(jsonObj);
 
@@ -81,8 +83,10 @@ const uploadFile = async (req, res, next)=>{
     // console.log(filePath);
     // delete file after 5 seconds
 
-      setTimeout(()=>{          
-          fs.unlinkSync(req.file.path);
+      setTimeout(()=>{  
+          if(req?.file?.path){
+            fs.unlinkSync(req.file.path);
+          }        
           // fs.unlink();
         },5000);
   }
@@ -90,15 +94,18 @@ const uploadFile = async (req, res, next)=>{
 }
 
 const getAllTheFilesUploadedByCurrentUser = async (req, res, next)=>{
+  // console.log(req.userID);
+
   // query the mongodb asking get all the docs uploaded by current User
   const result = await FileModel.find({uploadedByWhichUser: req.userID});
+  // console.log(result);
   if(result.length === 0){
     next(throwNewError(404, {success: false, message: "No records Found!"}));
     return;
   }
   // return the result
   // console.log(result);
-  res.json(result);  
+  res.json({success: true, data: result});  
 }
 
 const getFileForDownload = async (req, res, next)=>{
@@ -124,7 +131,7 @@ const getFileForDownload = async (req, res, next)=>{
       result.save();
       
   // return the result  
-    // res.json(result);  
+    // res.json(result);      
     res.redirect(result.fileDownloadLink);
     
   } catch (error) {
@@ -132,10 +139,57 @@ const getFileForDownload = async (req, res, next)=>{
   }
 }
 
+async function cloudinaryFileDelete(fileUniqueID){
+  try {
+    const response = await cloudinary.uploader.destroy(fileUniqueID);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+const deleteAFile = async (req, res, next)=>{
+  // first check if fileUniqueID is present in req
+    const fileUniqueID = req.body?.fileUniqueID;
+    if(!fileUniqueID){
+      next(throwNewError(400, {success: false, message: "Missing fileUniqueID in the request!"}));
+      return;
+    }
+    // console.log(fileUniqueID);
+  // find the document containing fileUniqueID
+    let doc = await FileModel.findOne({'fileUniqueID': fileUniqueID, uploadedByWhichUser: req.userID});
+    if(!doc){
+      next(throwNewError(404, {success: false, message: "File not Found!"}));
+      return;
+    }
+  // Now Issue command to cloudinary server to delete a file
+    if(cloudinaryFileDelete(fileUniqueID)){
+      // delete the doc from mongoDB collection as well
+      doc = await FileModel.findOneAndDelete({'fileUniqueID': fileUniqueID, uploadedByWhichUser: req.userID});
+      if(!doc){
+        next(throwNewError(404, {success: false, message: "File deleted from clodinary server, but failed to delete from the database!"}));
+        return;
+      }
+
+    }else{
+      next(throwNewError(500, {success: false, message: "Unable to delete File, please try again later!"}));
+      return;      
+    }
+  // does current user has created that file? then delete it
+    // console.log(doc.uploadedByWhichUser, req.userID);
+    // console.log(doc);
+
+
+  res.json({
+    success: true,
+    message: "File deleted successfully!"
+  })
+}
+
 const FileController = {
   uploadFile,
   getAllTheFilesUploadedByCurrentUser,
-  getFileForDownload
+  getFileForDownload,
+  deleteAFile
 };
 
 export default FileController;

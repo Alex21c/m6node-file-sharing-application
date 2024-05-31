@@ -20,12 +20,10 @@ const FileSchema = new Schema({
   fileDownloadLink : {type: String, required: true},
   fileUniqueID : {type: String, required: true},
   fileTrackableShareableLink : {type: String, required: true},
-  uploadedOnTimeStamp : {type: Date, required: true},
-  uploadedByWhichUser : {type: String, required: true},
-  traffic : {type: Number, required: true, default: 0},
-
-});
+  uploadedByWhichUser : {type: mongoose.Types.ObjectId, ref: "users"},
+  traffic : {type: Number, required: true, default: 1},
+}, {timestamps: true});
 
 // Here i'm specifying the my collection name and schema to be followed by all the documents inside it
-const FileModel = mongoose.model('Files', FileSchema);
+const FileModel = mongoose.model('files', FileSchema);
 export default FileModel;

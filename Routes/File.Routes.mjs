@@ -22,8 +22,9 @@ const upload = multer({storage: storage});
 
 const FileRoutes = e.Router();
 
-FileRoutes.post('/upload-file', AuthenticateUser, upload.single('fileName'), FileController.uploadFile);
+
 FileRoutes.get('/get-all-the-files-uploaded-by-current-user',AuthenticateUser,  FileController.getAllTheFilesUploadedByCurrentUser);
 FileRoutes.get('/download-file/:fileUniqueID', FileController.getFileForDownload);
-
+FileRoutes.post('/delete-file', AuthenticateUser, FileController.deleteAFile);
+FileRoutes.post('/upload-file', AuthenticateUser, upload.single('fileName'), FileController.uploadFile);
 export default FileRoutes;

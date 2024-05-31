@@ -25,6 +25,6 @@ const {Schema} = mongoose;
   });
 
 // Now specifying the Collection, and Schema which needs to be followed by the documents inside Collection
-  const UserModel = mongoose.model('Users', userSchema);
+  const UserModel = mongoose.model('users', userSchema);
 
   export default UserModel;

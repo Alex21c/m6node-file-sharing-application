@@ -56,7 +56,7 @@ const signUpUser= async (req, res)=>{
 
   
   // return the jwt token
-    const jwtToken = generateJWT(objUserModel._id.toHexString()); 
+    const jwtToken = generateJWT(objUserModel._id); 
     res.json({
       success: true,
       message: "User Account created successfully !",
@@ -105,7 +105,8 @@ const signInUser= async(req, res)=>{
       await UserModel.findByIdAndUpdate(result[0]._id, jsonObj);
 
     // return the jwt token
-      const jwtToken = generateJWT(result[0]._id.toHexString());  
+      // console.log(result[0]._id);
+      const jwtToken = generateJWT(result[0]._id);  
       
     res.json({
       success: true,

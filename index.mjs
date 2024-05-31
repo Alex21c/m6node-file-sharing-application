@@ -24,7 +24,10 @@ import morgan from 'morgan';
     let server = express();
     const PORT = process.env.PORT ? process.env.PORT : 3000;
 
-    // Middleware for logging errors
+  // json body req
+    server.use(express.json());
+
+  // Middleware for logging errors
     server.use(morgan('dev'));
 
   // Connecting to DB
@@ -36,9 +39,7 @@ import morgan from 'morgan';
       throw new Error('Unable to connect to DB');
     });
 
- 
-  // Allowing me to parse req.body
-    server.use(express.json());
+    
 
   
   // Use the CORS middleware, such that from localhost i can make requests
