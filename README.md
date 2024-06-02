@@ -8,7 +8,7 @@
 [FrontEnd File Sharing Application](https://github.com/Alex21c/frontend-m6node-file-sharing-application)
 
 ## Overview:
-In this project i have developed the a robust and scalable file sharing application.
+In this project i have developed a robust and scalable file sharing application.
 
 ## Objectives: 
 + Understand the architecture and design principles of a file sharing application.
