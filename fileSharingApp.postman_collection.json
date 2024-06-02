@@ -1,0 +1,286 @@
+{
+	"info": {
+		"_postman_id": "da6a0475-5a8a-4194-8e09-d550ed09b49d",
+		"name": "fileSharingApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32540147"
+	},
+	"item": [
+		{
+			"name": "localhost",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "sign-up",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"kabir@alex21c.com\",\r\n    \"password\": \"admin123\",\r\n    \"firstName\": \"Abhishek\",\r\n    \"lastName\": \"Kumar\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/user/sign-up",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sign-in",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"kabir@alex21c.com\",\r\n    \"password\": \"admin123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/user/sign-in",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "validate-auth-token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU2YmY1NGEwOTExOGU2NDZlMmEzYmEiLCJpYXQiOjE3MTY5NjEyNjAsImV4cCI6MTcxNzEzNDA2MH0.tx-IzIKTz-ZKJntPS1eVvbr_SBKGHcH9KnvEpa4pKzo"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/user/validate-auth-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"validate-auth-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "handshakeHello",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRjYzE0YThiNDY5NDQ4NjcyNWY2ZjQiLCJpYXQiOjE3MTYzNzY4NDQsImV4cCI6MTcxNjU0OTY0NH0.jj75a2t-Ps2vomi4811BlgviRb-jnbZ9nGUoYLeSUko"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/user/handshake/hello",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"handshake",
+										"hello"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "File",
+					"item": [
+						{
+							"name": "upload-file",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU5NTljMmU0NzZlM2I3ZmFjZTljNjYiLCJpYXQiOjE3MTcxMzE3MTQsImV4cCI6MTcxNzMwNDUxNH0.JF66Jai3nEc7H-RkHs9smtuMYB6BP7lKcD1Y4mbDevY"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "fileName",
+											"type": "file",
+											"src": "/C:/Users/MahamayaComputers/Documents/Testing/m6node-file-sharing-application/SampleUploadFiles/gold and silver bullion.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/file/upload-file",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"file",
+										"upload-file"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-file",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU5NTljMmU0NzZlM2I3ZmFjZTljNjYiLCJpYXQiOjE3MTcxMzE3MTQsImV4cCI6MTcxNzMwNDUxNH0.JF66Jai3nEc7H-RkHs9smtuMYB6BP7lKcD1Y4mbDevY"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fileUniqueID\" :\"mr8oh7ivi47i9tr1vcz5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/file/delete-file",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"file",
+										"delete-file"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "download-file",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/v1/file/download-file/xy2scs5qufwtkd8pxbfo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"file",
+										"download-file",
+										"xy2scs5qufwtkd8pxbfo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-the-files-uploaded-by-current-user",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU5NTljMmU0NzZlM2I3ZmFjZTljNjYiLCJpYXQiOjE3MTcxMzE3MTQsImV4cCI6MTcxNzMwNDUxNH0.JF66Jai3nEc7H-RkHs9smtuMYB6BP7lKcD1Y4mbDevY"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:4000/api/v1/file/get-all-the-files-uploaded-by-current-user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"file",
+										"get-all-the-files-uploaded-by-current-user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
