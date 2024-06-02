@@ -53,7 +53,9 @@ import morgan from 'morgan';
 
     // CORS
     server.use((req, res, next) => {
+      
       if (req.headers.host.includes('localhost')) {
+        // console.log('its localhost');
         res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
       } else {
         res.header('Access-Control-Allow-Origin', 'https://frontend-m6node-file-sharing-application.vercel.app');
