@@ -29,7 +29,7 @@ In this project i have developed a robust and scalable file sharing application.
 ## .ENV file
 ```
 PORT=4000
-PRIVATE_KEY= any random key of yorus choice
+PRIVATE_KEY= any random key of yours choice
 MONGODB_CONNECTION_STRING= get it from Yours MongoDB Atlas account (https://cloud.mongodb.com/)
 USER_SESSION_EXPIRES_AFTER="2 days"
 CLOUDINARY_CLOUD_NAME = GET YOURS FROM clodinary
